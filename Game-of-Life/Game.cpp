@@ -1,6 +1,6 @@
 #include "Game.h"
 #include <time.h>
-
+#include <fstream>
 
 Game::Game() : gui(window) {
 	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game of Life", Style::Titlebar | Style::Close);
@@ -115,7 +115,7 @@ void Game::clickOnScreen(int cellPositionX, int cellPositionY) {
 	if (pause && cellPositionY <= BUTTON_BLOCKS)
 		nextGen();
 
-	// start clicked
+	// lock clicked
 	if (cellPositionY > BUTTON_BLOCKS && cellPositionY <= 2 * BUTTON_BLOCKS) {
 		pause = !pause;
 	}
@@ -135,4 +135,34 @@ void Game::clickOnScreen(int cellPositionX, int cellPositionY) {
 	// clean clicked
 	if (pause && cellPositionY > 3 * BUTTON_BLOCKS && cellPositionY <= 4 * BUTTON_BLOCKS)
 		zeroArray(world);
+
+	// load clicked
+	if (pause && cellPositionY > 4 * BUTTON_BLOCKS && cellPositionY <= 5 * BUTTON_BLOCKS)
+		loadFile();
+
+	// save clicked
+	if (pause && cellPositionY > 5 * BUTTON_BLOCKS && cellPositionY <= 6 * BUTTON_BLOCKS)
+		saveFile();
+}
+
+
+void Game::loadFile() {
+	std::ifstream inFile("world.save");
+	
+	for (int i = 0; i < ARRAY_SIZE; i++)
+		for (int j = 0; j < ARRAY_SIZE; j++)
+			inFile >> world[i][j];
+
+	inFile.close();
+}
+
+
+void Game::saveFile() {
+	std::ofstream outFile("world.save");
+
+	for (int i = 0; i < ARRAY_SIZE; i++)
+		for (int j = 0; j < ARRAY_SIZE; j++)
+			outFile << world[i][j] << " ";
+
+	outFile.close();
 }

@@ -16,7 +16,7 @@ private:
 	Font font;
 	RectangleShape cells;
 	Text buttonNext;
-	Text buttonStart;
+	Text buttonLock;
 	Text buttonAdd;
 	Text buttonClean;
 	Text buttonLoadW;

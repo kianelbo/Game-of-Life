@@ -26,6 +26,9 @@ private:
 	bool isEmptyWorld();
 	void clickOnScreen(int cellPositionX, int cellPositionY);
 
+	void loadFile();
+	void saveFile();
+
 public:
 	Game();
 
