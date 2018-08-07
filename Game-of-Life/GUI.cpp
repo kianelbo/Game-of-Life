@@ -23,36 +23,36 @@ void GUI::cellsSetup() {
 
 void GUI::buttonsSetup() {
 	font.loadFromFile("LedDisplay.ttf");
+	buttonNext.setFont(font);
 	buttonStart.setFont(font);
-	buttonStop.setFont(font);
 	buttonAdd.setFont(font);
 	buttonClean.setFont(font);
 	buttonLoadW.setFont(font);
 	buttonSaveW.setFont(font);
 
+	buttonNext.setString("NEXT");
 	buttonStart.setString("START");
-	buttonStop.setString("STOP");
 	buttonAdd.setString("ADD CELLS");
 	buttonClean.setString("CLEAN WORLD");
 	buttonLoadW.setString("LOAD WORLD");
 	buttonSaveW.setString("SAVE WORLD");
 
+	buttonNext.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
 	buttonStart.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
-	buttonStop.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
 	buttonAdd.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
 	buttonClean.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
 	buttonLoadW.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
 	buttonSaveW.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
 
+	buttonNext.setFillColor(Color::Green);
 	buttonStart.setFillColor(Color::Green);
-	buttonStop.setFillColor(Color::Green);
 	buttonAdd.setFillColor(Color::Green);
 	buttonClean.setFillColor(Color::Green);
 	buttonLoadW.setFillColor(Color::Green);
 	buttonSaveW.setFillColor(Color::Green);
 
-	buttonStart.setPosition(BUTTON_X, 0);
-	buttonStop.setPosition(BUTTON_X, BUTTON_BLOCKS*CELL_SIZE);
+	buttonNext.setPosition(BUTTON_X, 0);
+	buttonStart.setPosition(BUTTON_X, BUTTON_BLOCKS*CELL_SIZE);
 	buttonAdd.setPosition(BUTTON_X, 2 * BUTTON_BLOCKS*CELL_SIZE);
 	buttonClean.setPosition(BUTTON_X, 3 * BUTTON_BLOCKS*CELL_SIZE);
 	buttonLoadW.setPosition(BUTTON_X, 4 * BUTTON_BLOCKS*CELL_SIZE);
@@ -61,8 +61,8 @@ void GUI::buttonsSetup() {
 
 
 void GUI::draw() {
+	window.draw(buttonNext);
 	window.draw(buttonStart);
-	window.draw(buttonStop);
 	window.draw(buttonAdd);
 	window.draw(buttonClean);
 	window.draw(buttonLoadW);

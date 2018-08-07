@@ -16,15 +16,13 @@ private:
 	GUI gui;
 
 	int world[ARRAY_SIZE][ARRAY_SIZE];
-	int neighborsCount[ARRAY_SIZE][ARRAY_SIZE];
+	int neighbours[ARRAY_SIZE][ARRAY_SIZE];
 	bool pause;
 
 	void processEvents();
-	void update();
 	void render();
-
-	void zeroArray(int arr[][ARRAY_SIZE]);
 	void nextGen();
+	void zeroArray(int arr[][ARRAY_SIZE]);
 	bool isEmptyWorld();
 	void clickOnScreen(int cellPositionX, int cellPositionY);
 
