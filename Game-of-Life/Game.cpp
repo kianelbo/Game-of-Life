@@ -5,6 +5,7 @@
 Game::Game() : gui(window) {
 	window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Game of Life", Style::Titlebar | Style::Close);
 	srand(time(NULL));
+	zeroArray(world);
 }
 
 

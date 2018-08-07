@@ -22,12 +22,13 @@ private:
 	Text buttonLoadW;
 	Text buttonSaveW;
 
+	void cellsSetup();
+	void buttonsSetup();
+	void draw();
+
 public:
 	GUI(RenderWindow &window);
 
 	void setupWindow();
-	void cellsSetup();
-	void buttonsSetup();
-	void draw();
 	void setCells(int cellPositionX, int cellPositionY, int alive);
 };
