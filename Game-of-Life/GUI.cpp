@@ -1,62 +1,47 @@
 #include "GUI.h"
 
+Color GRAY(80, 80, 85);
 
 
 GUI::GUI(RenderWindow &window) : window(window) {};
 
 
 void GUI::setupWindow() {
-	cellsSetup();
-	buttonsSetup();
+	setup();
 	draw();
 	window.display();
 }
 
 
-void GUI::cellsSetup() {
+void GUI::setup() {
+	// cells
 	Vector2f cellSize(CELL_SIZE, CELL_SIZE);
 	cells.setSize(cellSize);
-	cells.setOutlineColor(Color::Blue);
-	cells.setOutlineThickness(0.6);
-}
+	cells.setOutlineColor(Color::Black);
+	cells.setOutlineThickness(2);
 
+	// buttons
+	texture.loadFromFile("buttons.jpg");
+	buttonNext.setTexture(texture);
+	buttonLock.setTexture(texture);
+	buttonAdd.setTexture(texture);
+	buttonClean.setTexture(texture);
+	buttonLoadW.setTexture(texture);
+	buttonSaveW.setTexture(texture);
 
-void GUI::buttonsSetup() {
-	font.loadFromFile("LedDisplay.ttf");
-	buttonNext.setFont(font);
-	buttonLock.setFont(font);
-	buttonAdd.setFont(font);
-	buttonClean.setFont(font);
-	buttonLoadW.setFont(font);
-	buttonSaveW.setFont(font);
+	buttonNext.setTextureRect(IntRect(0, 0, 240, 40));
+	buttonLock.setTextureRect(IntRect(0, 40, 240, 40));
+	buttonAdd.setTextureRect(IntRect(0, 80, 240, 40));
+	buttonClean.setTextureRect(IntRect(0, 120, 240, 40));
+	buttonLoadW.setTextureRect(IntRect(0, 160, 240, 40));
+	buttonSaveW.setTextureRect(IntRect(0, 200, 240, 40));
 
-	buttonNext.setString("NEXT");
-	buttonLock.setString("LOCK");
-	buttonAdd.setString("ADD CELLS");
-	buttonClean.setString("CLEAN WORLD");
-	buttonLoadW.setString("LOAD WORLD");
-	buttonSaveW.setString("SAVE WORLD");
-
-	buttonNext.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
-	buttonLock.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
-	buttonAdd.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
-	buttonClean.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
-	buttonLoadW.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
-	buttonSaveW.setCharacterSize(BUTTON_BLOCKS * CELL_SIZE);
-
-	buttonNext.setFillColor(Color::Green);
-	buttonLock.setFillColor(Color::Green);
-	buttonAdd.setFillColor(Color::Green);
-	buttonClean.setFillColor(Color::Green);
-	buttonLoadW.setFillColor(Color::Green);
-	buttonSaveW.setFillColor(Color::Green);
-
-	buttonNext.setPosition(BUTTON_X, 0);
-	buttonLock.setPosition(BUTTON_X, BUTTON_BLOCKS*CELL_SIZE);
-	buttonAdd.setPosition(BUTTON_X, 2 * BUTTON_BLOCKS*CELL_SIZE);
-	buttonClean.setPosition(BUTTON_X, 3 * BUTTON_BLOCKS*CELL_SIZE);
-	buttonLoadW.setPosition(BUTTON_X, 4 * BUTTON_BLOCKS*CELL_SIZE);
-	buttonSaveW.setPosition(BUTTON_X, 5 * BUTTON_BLOCKS*CELL_SIZE);
+	buttonNext.setPosition(440, BUTTON_Y);
+	buttonLock.setPosition(440, BUTTON_Y + 60);
+	buttonAdd.setPosition(840, BUTTON_Y);
+	buttonClean.setPosition(840, BUTTON_Y + 60);
+	buttonLoadW.setPosition(1240, BUTTON_Y);
+	buttonSaveW.setPosition(1240, BUTTON_Y + 60);
 }
 
 
@@ -76,7 +61,28 @@ void GUI::setCells(int cellPositionX, int cellPositionY, int alive) {
 	if (alive)
 		cells.setFillColor(Color::White);
 	else
-		cells.setFillColor(Color::Black);
+		cells.setFillColor(GRAY);
 
 	window.draw(cells);
 }
+
+
+int GUI::getClickedElement(int x, int y) {
+	if (x >= ORIGIN_XY && x <= ORIGIN_XY + ARRAY_HSIZE * CELL_SIZE && y >= ORIGIN_XY && y <= ORIGIN_XY + ARRAY_VSIZE * CELL_SIZE)
+		return ((y - ORIGIN_XY) / CELL_SIZE) * ARRAY_HSIZE + (x - ORIGIN_XY) / CELL_SIZE;
+	else if (buttonNext.getGlobalBounds().contains(x, y))
+		return -1;
+	else if (buttonLock.getGlobalBounds().contains(x, y))
+		return -2;
+	else if (buttonAdd.getGlobalBounds().contains(x, y))
+		return -3;
+	else if (buttonClean.getGlobalBounds().contains(x, y))
+		return -4;
+	else if (buttonLoadW.getGlobalBounds().contains(x, y))
+		return -5;
+	else if (buttonSaveW.getGlobalBounds().contains(x, y))
+		return -6;
+	else
+		return -10;
+}
+

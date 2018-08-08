@@ -1,9 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#define CELL_SIZE 8
-#define BUTTON_BLOCKS 4
-#define BUTTON_X 808
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1440
+#define ARRAY_HSIZE 80
+#define ARRAY_VSIZE 50
+#define ORIGIN_XY 160
+#define CELL_SIZE 20
+#define BUTTON_BLOCKS 6
+#define BUTTON_Y 1260	// ORIGIN_XY + CELL_SIZE * ARRAY_VSIZE + 100
 
 
 using namespace sf;
@@ -13,17 +18,16 @@ class GUI {
 private:
 	RenderWindow &window;
 
-	Font font;
+	Texture texture;
 	RectangleShape cells;
-	Text buttonNext;
-	Text buttonLock;
-	Text buttonAdd;
-	Text buttonClean;
-	Text buttonLoadW;
-	Text buttonSaveW;
+	Sprite buttonNext;
+	Sprite buttonLock;
+	Sprite buttonAdd;
+	Sprite buttonClean;
+	Sprite buttonLoadW;
+	Sprite buttonSaveW;
 
-	void cellsSetup();
-	void buttonsSetup();
+	void setup();
 	void draw();
 
 public:
@@ -31,4 +35,5 @@ public:
 
 	void setupWindow();
 	void setCells(int cellPositionX, int cellPositionY, int alive);
+	int getClickedElement(int x, int y);
 };
