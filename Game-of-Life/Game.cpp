@@ -11,9 +11,16 @@ Game::Game() : gui(window) {
 
 
 void Game::run() {
+	float timer, timeDelta = 0, delay = 0.1;
+	Clock clock;
 	while (window.isOpen()) {
+		timer = clock.getElapsedTime().asSeconds();
+		clock.restart();
+		timeDelta += timer;
 		processEvents();
-		if (!pause) nextGen();
+		if (!pause && timeDelta > delay) {
+			nextGen(); timeDelta = 0;
+		}
 		render();
 	}
 }
