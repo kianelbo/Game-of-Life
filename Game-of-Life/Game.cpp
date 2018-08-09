@@ -81,7 +81,7 @@ void Game::processEvents() {
 }
 
 
-void Game::zeroArray(int arr[][ARRAY_HSIZE]) {
+void Game::zeroArray(char arr[][ARRAY_HSIZE]) {
 	for (int i = 0; i < ARRAY_VSIZE; i++)
 		for (int j = 0; j < ARRAY_HSIZE; j++)
 			arr[i][j] = 0;
